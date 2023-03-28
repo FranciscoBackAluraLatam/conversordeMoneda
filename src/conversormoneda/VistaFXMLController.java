@@ -45,9 +45,14 @@ public class VistaFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
      LabelNotifi.setText("Oline");
     }    
+    
+    String Modena1=TextAreaone.getText();
+    String Modena2=TextAreatwo.getText();
 
     @FXML
     private void ConvertirModenaactual(ActionEvent event) {
+        
+        
     }
 
     @FXML
