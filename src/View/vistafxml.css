@@ -3,5 +3,13 @@
  */
 
 .mainFxmlClass {
+    -fx-background-color: azure;
 
+}
+
+.BtnClass{
+    -fx-color: black;
+     -fx-font : 14px "serief";  
+    -fx-padding : 10;  
+    -fx-background-color : #0a3871;  
 }
