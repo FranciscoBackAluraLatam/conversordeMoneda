@@ -11,5 +11,13 @@
     -fx-color: black;
      -fx-font : 14px "serief";  
     -fx-padding : 10;  
-    -fx-background-color : #0a3871;  
+    -fx-background-color : #0a3871;
+    -fx-border-radius: 50px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+.TextAreaInput{
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+.ComboxMone{
+       -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
 }

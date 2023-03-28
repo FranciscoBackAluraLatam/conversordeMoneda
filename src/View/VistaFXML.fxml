@@ -14,15 +14,15 @@
         <URL value="@vistafxml.css" />
     </stylesheets>
    <children>
-      <TextField fx:id="TextAreaone" layoutX="211.0" layoutY="118.0" prefHeight="26.0" prefWidth="125.0" />
+      <TextField id="TextField" fx:id="TextAreaone" layoutX="211.0" layoutY="118.0" prefHeight="26.0" prefWidth="125.0" styleClass="TextAreaInput" stylesheets="@vistafxml.css" />
       <Button id="Button" layoutX="231.0" layoutY="222.0" mnemonicParsing="false" onAction="#ConvertirModenaactual" styleClass="BtnClass" stylesheets="@vistafxml.css" text="Convertir" />
-      <ComboBox fx:id="CboxDivisa" layoutX="23.0" layoutY="54.0" prefHeight="26.0" prefWidth="156.0" />
+      <ComboBox id="ComboBox" fx:id="CboxDivisa" layoutX="23.0" layoutY="54.0" prefHeight="26.0" prefWidth="156.0" styleClass="ComboxMone" stylesheets="@vistafxml.css" />
       <Label layoutX="14.0" layoutY="27.0" prefHeight="18.0" prefWidth="212.0" text="Seleccione el tipo de cambio">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="TextAreatwo" layoutX="211.0" layoutY="167.0" prefHeight="26.0" prefWidth="125.0" />
+      <TextField id="TextField" fx:id="TextAreatwo" layoutX="211.0" layoutY="167.0" prefHeight="26.0" prefWidth="125.0" styleClass="TextAreaInput" stylesheets="@vistafxml.css" />
       <Button layoutX="463.0" layoutY="345.0" mnemonicParsing="false" onAction="#SalirPrograma" prefWidth="54.0" styleClass="BtnClass" text="Salir" />
       <Label fx:id="LabelMone" layoutX="377.0" layoutY="135.0" prefHeight="18.0" prefWidth="100.0" />
       <Label fx:id="LabelMtwo" layoutX="377.0" layoutY="185.0" prefHeight="18.0" prefWidth="100.0" />
