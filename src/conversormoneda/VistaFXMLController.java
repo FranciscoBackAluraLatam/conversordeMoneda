@@ -43,15 +43,44 @@ public class VistaFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     LabelNotifi.setText("Oline");
+     LabelNotifi.setText("Online");
     }    
     
-    String Modena1=TextAreaone.getText();
-    String Modena2=TextAreatwo.getText();
+   
 
     @FXML
     private void ConvertirModenaactual(ActionEvent event) {
+        try {
         
+                 if(TextAreaone.getText()=="" && TextAreatwo.getText()==""){
+        JOptionPane.showMessageDialog(null, "Campos Vacios",  "Alerta!", 0);
+        }else{ 
+            
+          if(TextAreaone.getText().isEmpty()==false && TextAreatwo.getText().isEmpty()==false){
+              JOptionPane.showMessageDialog(null, "No se puede ingresar\n"+"Los dos datos",  "Alerta!", 0);  
+          }else{
+              
+               int Modena1=Integer.parseInt( TextAreaone.getText());
+             int Modena2=Integer.parseInt(TextAreatwo.getText());
+        if(Modena1!=-1){
+            System.out.println("Modena 1"+Modena1);
+            
+        }if(Modena2!=-1){
+                System.out.println("Modena 2"+Modena2);
+                 JOptionPane.showMessageDialog(null, "Dato incorrecto\n"+"Solo Enteros",  "Alerta!", 0); 
+         }}
+            
+       
+    }
+        } catch (Exception e) {
+            System.out.println(e);
+            
+        }
+ 
+       
+    
+        TextAreaone.setText("");
+        TextAreatwo.setText("");
         
     }
 
