@@ -149,6 +149,8 @@ public class VistaFXMLController implements Initializable {
                 CboxDivisa1.getItems().addAll(options);
 
             } else {
+                
+                //aqui puede llamar objetos para crear la lista en Combobox
                 System.out.println(BtnTonggle.isSelected());
                 LabelNotifi.setText("Oline");
                 LabelMone.setText("");
@@ -191,6 +193,8 @@ public class VistaFXMLController implements Initializable {
         TextAreatwo.setText("");
 
     }
+    
+    //metodo para realizar la coversion de la moneda segun el tipo de moneda
     
     public double Cambio(Moneda m,Moneda r, double Cantidad){
         System.out.println("ingreso a cambio");
