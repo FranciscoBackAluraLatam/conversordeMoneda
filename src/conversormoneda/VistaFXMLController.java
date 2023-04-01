@@ -48,16 +48,15 @@ public class VistaFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LabelNotifi.setText("Online");
-        TextAreatwo.setText("probando");
-
     }
     // lista de los datas quemados
     ObservableList<Moneda> options
             = FXCollections.observableArrayList(
-                    new Moneda("2017-07-25T12:53:00", "THB", "EUR EURO", 0.0261, 3.0, 0.07829),
-                    new Moneda("2017-07-25T12:53:00", "THB", "USD DOLAR", 0, 0.261, 0.13),
-                    new Moneda("2017-07-25T12:53:00", "THB", "Q QUETZAL", 0, 0, 1),
-                    new Moneda("2017-07-25T12:53:00", "THB", "RMB YUAN", 0, 0, 0.25)
+                                                                  
+                    new Moneda("2017-07-25T12:53:00", "THB", "EUR EURO", 1.09, 1.0, 8.46,7.47),
+                    new Moneda("2017-07-25T12:53:00", "THB", "USD DOLAR", 1, 0.92, 7.78, 6.87),
+                    new Moneda("2017-07-25T12:53:00", "THB", "Q QUETZAL", 0.13, 0.12, 1, 0.88),
+                    new Moneda("2017-07-25T12:53:00", "THB", "RMB YUAN", 0.15, 0.13, 1.13, 1.0)
             );
 
     //Metodo para recibe el text area y los covierte en enteros
@@ -65,50 +64,56 @@ public class VistaFXMLController implements Initializable {
     private void ConvertirModenaactual(ActionEvent event) {
 
         try {
+            if (CboxDivisa.getSelectionModel().getSelectedItem() != null && CboxDivisa1.getSelectionModel().getSelectedItem() != null) {
 
-            if ("".equals(TextAreaone.getText()) && "".equals(TextAreatwo.getText())) {
-                JOptionPane.showMessageDialog(null, "Campos Vacios", "Alerta!", 0);
-            } else {
+                if ("".equals(TextAreaone.getText()) && "".equals(TextAreatwo.getText())) {
+                    JOptionPane.showMessageDialog(null, "Campos Vacios", "Alerta!", 0);
+                } else {
 
-                if (TextAreaone.getText().isEmpty() == false && TextAreatwo.getText().isEmpty() == false) {
-                    JOptionPane.showMessageDialog(null, """
+                    if (TextAreaone.getText().isEmpty() == false && TextAreatwo.getText().isEmpty() == false) {
+                        JOptionPane.showMessageDialog(null, """
                                                   No se puede ingresar
                                                   Los dos datos""", "Alerta!", 0);
-                } else {
-                    if (TextAreaone.getText().isEmpty() == false) {
-                        int Modena1 = Integer.parseInt(TextAreaone.getText());
+                        ClearPrograma();
+                    } else {
+                        if (TextAreaone.getText().isEmpty() == false) {
+                            double Modena1 = Double.parseDouble(TextAreaone.getText());
 
-                        System.out.println("Modena 1" + Modena1);
-                        //Obtenemos la informacion del objeto que esta selecionado en el Combobox
-                        Moneda f = CboxDivisa.getSelectionModel().getSelectedItem();
-                        System.out.println(f.getAmount());
-                        System.out.println(Modena1);
-                        Double res=Modena1*f.getAmount();
-                        System.out.println("Resultado"+res);
-                        TextAreatwo.setText(String.valueOf(res));
-                    }else{
-                           if (TextAreatwo.getText().isEmpty() == false) {
-                        int Modena2 = Integer.parseInt(TextAreatwo.getText());
-                        System.out.println("Modena 2" + Modena2);
-                           }
-                    }  
+                            //Obtenemos la informacion del objeto que esta selecionado en el Combobox
+                            Moneda f = CboxDivisa1.getSelectionModel().getSelectedItem();
+                            Moneda r = CboxDivisa.getSelectionModel().getSelectedItem();
+                            System.out.println(f.toString());
+                            TextAreatwo.setText(String.valueOf(Cambio(f, r,Modena1)));
+                        } else {
+                            if (TextAreatwo.getText().isEmpty() == false) {
+                         
+                                double Modena2 = Double.parseDouble(TextAreatwo.getText());
+                                       Moneda f = CboxDivisa1.getSelectionModel().getSelectedItem();
+                            Moneda r = CboxDivisa.getSelectionModel().getSelectedItem();
+                            TextAreaone.setText(String.valueOf(Cambio(f, r,Modena2)));
+                            }
+                        }
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, """
+                                                 Tipo de modena
+                                                no seleccionada""", "Alerta!", 0);
             }
-        } catch (NullPointerException e ) {
+        } catch (NullPointerException e) {
             System.out.println(e);
-    
+
             JOptionPane.showMessageDialog(null, """
                                                  Tipo de modena
                                                 no seleccionada""", "Alerta!", 0);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println(e);
-           JOptionPane.showMessageDialog(null, """
+            JOptionPane.showMessageDialog(null, """
                                                 Solo valores 
                                                de tipo entero""", "Alerta!", 0);
-   
-       }
 
- 
+        }
+
     }
 
     @FXML
@@ -138,7 +143,7 @@ public class VistaFXMLController implements Initializable {
     public String toString() {
         return target ;
     }
-
+  
                  */
                 CboxDivisa.getItems().addAll(options);
                 CboxDivisa1.getItems().addAll(options);
@@ -181,10 +186,27 @@ public class VistaFXMLController implements Initializable {
     }
 
     @FXML
-    private void ClearPrograma(ActionEvent event) {
-               TextAreaone.setText("");
+    private void ClearPrograma() {
+        TextAreaone.setText("");
         TextAreatwo.setText("");
 
+    }
+    
+    public double Cambio(Moneda m,Moneda r, double Cantidad){
+        System.out.println("ingreso a cambio");
+        
+        double aux=0.0;
+        
+        switch (m.getTarget()) {
+            case "EUR EURO" -> aux=r.getEUR();
+            case "USD DOLAR" -> aux=r.getUSD();
+            case "Q QUETZAL" -> aux=r.getQT();
+            case "RMB YUAN" -> aux=r.getRMB();
+            default -> throw new NullPointerException();
+        }
+        System.out.println(aux);
+        return Cantidad*aux;
+                 
     }
 
 }

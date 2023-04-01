@@ -12,24 +12,28 @@ public final class Moneda {
       private String updated;
   private String source;
   private String target;
-  private double value;
-  private double quantity;
-  private double amount;
+  private double USD;
+  private double EUR;
+  private double QT;
+  private double RMB;
+  
+  
+  
+  
     
     public Moneda(){
         
     }
 
-    public Moneda(String updated, String source, String target, double value, double quantity, double amount) {
-        setAmount(amount);
-        setQuantity(quantity);
+    public Moneda(String updated, String source, String target, double USD, double EUR, double QT, double RMB) {
+        setUpdated(updated);
         setSource(source);
         setTarget(target);
-        setValue(value);
-        setUpdated(updated);
+         setUSD(USD);
+        setEUR(EUR);
+        setQT(QT);
+        setRMB(RMB);
     }
-
- 
 
     public String getUpdated() {
         return updated;
@@ -55,29 +59,39 @@ public final class Moneda {
         this.target = target;
     }
 
-    public double getValue() {
-        return value;
+    public double getUSD() {
+        return USD;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setUSD(double USD) {
+        this.USD = USD;
     }
 
-    public double getQuantity() {
-        return quantity;
+    public double getEUR() {
+        return EUR;
     }
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
+    public void setEUR(double EUR) {
+        this.EUR = EUR;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getQT() {
+        return QT;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setQT(double QT) {
+        this.QT = QT;
     }
+
+    public double getRMB() {
+        return RMB;
+    }
+
+    public void setRMB(double RMB) {
+        this.RMB = RMB;
+    }
+
+
 
     @Override
     public String toString() {
