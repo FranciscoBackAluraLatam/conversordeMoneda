@@ -7,8 +7,6 @@ package conversormoneda;
 import Model.Moneda;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javax.swing.JOptionPane;
@@ -51,17 +48,17 @@ public class VistaFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LabelNotifi.setText("Online");
+        TextAreatwo.setText("probando");
 
     }
     // lista de los datas quemados
-    ObservableList<Moneda> options = 
-    FXCollections.observableArrayList(
-        new Moneda("2017-07-25T12:53:00", "THB", "EUR EURO", 0.0261, 3.0, 0.07829),
-                   new Moneda("2017-07-25T12:53:00", "THB", "USD DOLAR", 0, 0, 0),
-                   new Moneda("2017-07-25T12:53:00", "THB", "Q QUETZAL", 0, 0, 0),
-                   new Moneda("2017-07-25T12:53:00", "THB", "RMB YUAN", 0, 0, 0)
-    );
-  
+    ObservableList<Moneda> options
+            = FXCollections.observableArrayList(
+                    new Moneda("2017-07-25T12:53:00", "THB", "EUR EURO", 0.0261, 3.0, 0.07829),
+                    new Moneda("2017-07-25T12:53:00", "THB", "USD DOLAR", 0, 0.261, 0.13),
+                    new Moneda("2017-07-25T12:53:00", "THB", "Q QUETZAL", 0, 0, 1),
+                    new Moneda("2017-07-25T12:53:00", "THB", "RMB YUAN", 0, 0, 0.25)
+            );
 
     //Metodo para recibe el text area y los covierte en enteros
     @FXML
@@ -83,29 +80,35 @@ public class VistaFXMLController implements Initializable {
 
                         System.out.println("Modena 1" + Modena1);
                         //Obtenemos la informacion del objeto que esta selecionado en el Combobox
-                           Moneda f =CboxDivisa.getSelectionModel().getSelectedItem();
-                         
-
-                    }
-                    if (TextAreatwo.getText().isEmpty() == false) {
+                        Moneda f = CboxDivisa.getSelectionModel().getSelectedItem();
+                        System.out.println(f.getAmount());
+                        System.out.println(Modena1);
+                        Double res=Modena1*f.getAmount();
+                        System.out.println("Resultado"+res);
+                        TextAreatwo.setText(String.valueOf(res));
+                    }else{
+                           if (TextAreatwo.getText().isEmpty() == false) {
                         int Modena2 = Integer.parseInt(TextAreatwo.getText());
                         System.out.println("Modena 2" + Modena2);
-
-                    }
-
+                           }
+                    }  
                 }
             }
-        } catch (NumberFormatException e) {
+        } catch (NullPointerException e ) {
             System.out.println(e);
+    
             JOptionPane.showMessageDialog(null, """
-                                                 Dato incorrecto
-                                                 Solo Enteros""", "Alerta!", 0);
+                                                 Tipo de modena
+                                                no seleccionada""", "Alerta!", 0);
+        }catch(NumberFormatException e){
+            System.out.println(e);
+           JOptionPane.showMessageDialog(null, """
+                                                Solo valores 
+                                               de tipo entero""", "Alerta!", 0);
+   
+       }
 
-        }
-
-        TextAreaone.setText("");
-        TextAreatwo.setText("");
-
+ 
     }
 
     @FXML
@@ -122,36 +125,34 @@ public class VistaFXMLController implements Initializable {
 
     @FXML
     private void TonggleOffline(ActionEvent event) {
-        try{
+        try {
 
-        if (BtnTonggle.isSelected() == true) {
-            System.out.println(BtnTonggle.isSelected());
-            LabelNotifi.setText("Offline");
-            //llenamos el Combox pero para solo aparesca el nombre del atributo y no el objeto creamos un Tostring 
-            //que tenga solo el nombre que deseamos ver en el ComboBox  
-            /*
+            if (BtnTonggle.isSelected() == true) {
+                System.out.println(BtnTonggle.isSelected());
+                LabelNotifi.setText("Offline");
+                //llenamos el Combox pero para solo aparesca el nombre del atributo y no el objeto creamos un Tostring 
+                //que tenga solo el nombre que deseamos ver en el ComboBox  
+                /*
             el ejemplo seria asi
                @Override
     public String toString() {
         return target ;
     }
 
-            */
-       CboxDivisa.getItems().addAll(options);
-       CboxDivisa1.getItems().addAll(options);
-              
+                 */
+                CboxDivisa.getItems().addAll(options);
+                CboxDivisa1.getItems().addAll(options);
 
-        } else {
-            System.out.println(BtnTonggle.isSelected());
-            LabelNotifi.setText("Oline");
-               LabelMone.setText("");
-            LabelMtwo.setText("");
-            CboxDivisa.getItems().clear();
-            CboxDivisa1.getItems().clear();
-         
+            } else {
+                System.out.println(BtnTonggle.isSelected());
+                LabelNotifi.setText("Oline");
+                LabelMone.setText("");
+                LabelMtwo.setText("");
+                CboxDivisa.getItems().clear();
+                CboxDivisa1.getItems().clear();
 
-        }
-        }catch(Exception e){
+            }
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -159,25 +160,31 @@ public class VistaFXMLController implements Initializable {
     @FXML
     private void SelecionCombox(ActionEvent event) {
         try {
-             Moneda f =CboxDivisa.getSelectionModel().getSelectedItem();
-          LabelMone.setText(f.getTarget());
+            Moneda f = CboxDivisa.getSelectionModel().getSelectedItem();
+            LabelMone.setText(f.getTarget());
         } catch (Exception e) {
-             System.out.println(e);
+            System.out.println(e);
         }
-         
-        
+
     }
 
     @FXML
     private void SelecionComboxB(ActionEvent event) {
         try {
-            Moneda f =CboxDivisa1.getSelectionModel().getSelectedItem();
-         LabelMtwo.setText(f.getTarget());
-            
+            Moneda f = CboxDivisa1.getSelectionModel().getSelectedItem();
+            LabelMtwo.setText(f.getTarget());
+
         } catch (Exception e) {
             System.out.println(e);
         }
-         
+
+    }
+
+    @FXML
+    private void ClearPrograma(ActionEvent event) {
+               TextAreaone.setText("");
+        TextAreatwo.setText("");
+
     }
 
 }

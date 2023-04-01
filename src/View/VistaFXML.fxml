@@ -33,5 +33,6 @@
          </font>
       </Label>
       <ComboBox id="ComboBox" fx:id="CboxDivisa1" layoutX="73.0" layoutY="167.0" onAction="#SelecionComboxB" prefHeight="26.0" prefWidth="125.0" styleClass="ComboxMone" stylesheets="@vistafxml.css" />
+      <Button layoutX="231.0" layoutY="271.0" mnemonicParsing="false" onAction="#ClearPrograma" prefHeight="38.0" prefWidth="86.0" styleClass="BtnClass" text="Clear" />
    </children>
 </AnchorPane>
